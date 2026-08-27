@@ -9,6 +9,8 @@ import Chip from '@mui/material/Chip'
 import Rating from '@mui/material/Rating'
 import LinearProgress from '@mui/material/LinearProgress'
 import Divider from '@mui/material/Divider'
+import HomeIcon from '@mui/icons-material/Home'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 function ProductDetailID() {
   const { id } = useParams()
@@ -81,8 +83,25 @@ function ProductDetailID() {
         }
       }}
     >
-      <Button component={Link} to='/' sx={{ mb: 3 }}>
-        ← Volver
+      <Button
+        component={Link}
+        to='/'
+        startIcon={<ArrowBackIcon />}
+        sx={{
+          backgroundColor: '#1E1E1E',
+
+          mb: 3,
+          boxShadow: 2,
+          borderRadius: 1,
+          px: 2,
+          py: 0.7,
+
+          '&:hover': {
+            boxShadow: 4
+          }
+        }}
+      >
+        Home
       </Button>
 
       <Paper
@@ -166,7 +185,7 @@ function ProductDetailID() {
         <Divider sx={{ my: 4 }} />
 
         <Typography variant='h4' gutterBottom>
-          Opinios
+          Opinions
         </Typography>
 
         {product.reviews.map((review, index) => (

@@ -68,7 +68,21 @@ function ProductCard({ product }) {
           </CardActionArea>
 
           <CardActions>
-            <Button size='small' component={Link} to={`/product/${product.id}`}>
+            <Button
+              size='small'
+              component={Link}
+              to={`/product/${product.id}`}
+              sx={{
+                boxShadow: 2,
+                borderRadius: 1,
+                px: 2,
+                py: 0.7,
+
+                '&:hover': {
+                  boxShadow: 4
+                }
+              }}
+            >
               Show Detail
             </Button>
           </CardActions>
