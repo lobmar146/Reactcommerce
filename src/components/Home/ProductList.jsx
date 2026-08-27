@@ -8,7 +8,11 @@ import Typography from '@mui/material/Typography'
 import ProductGrid from './ProductGrid'
 
 function ProductList() {
-  const { products, error, loading } = useContext(ElementosGlobales)
+  const { products, error, loading, search } = useContext(ElementosGlobales)
+
+  const filteredProducts = products.filter(product =>
+    product.title.toLowerCase().includes(search.toLowerCase())
+  )
 
   if (loading) {
     return (
@@ -21,12 +25,7 @@ function ProductList() {
           width: '100%'
         }}
       >
-        <LinearProgress
-          aria-label='Loading…'
-          sx={{
-            width: '80%'
-          }}
-        />
+        <LinearProgress sx={{ width: '80%' }} />
       </Box>
     )
   }
@@ -47,7 +46,7 @@ function ProductList() {
 
   return (
     <section>
-      <ProductGrid products={products} />
+      <ProductGrid products={filteredProducts} />
     </section>
   )
 }

@@ -11,11 +11,19 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-
+import { useContext, useState } from 'react'
+import { ElementosGlobales } from '../../context/ElementosGlobales'
+import SearchIcon from '@mui/icons-material/Search'
+import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
 const pages = ['Products']
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null)
+  const { search, setSearch } = useContext(ElementosGlobales)
+
+  const [anchorElNav, setAnchorElNav] = useState(null)
+
+  const [searchFocused, setSearchFocused] = useState(false)
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget)
@@ -151,6 +159,42 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
+          <TextField
+            size='small'
+            placeholder='Find product...'
+            value={search}
+            onChange={event => setSearch(event.target.value)}
+            onFocus={() => setSearchFocused(true)}
+            onBlur={() => setSearchFocused(false)}
+            sx={{
+              backgroundColor: 'background.paper',
+              borderRadius: 1,
+
+              width: {
+                xs: searchFocused ? 220 : 48,
+                sm: 220,
+                md: 250
+              },
+
+              transition: 'width 0.3s ease',
+
+              '& input': {
+                display: {
+                  xs: searchFocused ? 'block' : 'none',
+                  sm: 'block'
+                }
+              }
+            }}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <SearchIcon />
+                  </InputAdornment>
+                )
+              }
+            }}
+          />
         </Toolbar>
       </Container>
     </AppBar>

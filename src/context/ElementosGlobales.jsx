@@ -6,26 +6,20 @@ export const ElementosGlobales = createContext({})
 export default function ElementosGlobalesProvider(props) {
   const { children } = props
 
-  // Productos
   const [products, setProducts] = useState([])
-
-  // Estado de carga
   const [loading, setLoading] = useState(false)
-
-  // Estado de error
   const [error, setError] = useState(null)
 
-  // Tema
   const [darkMode, setDarkMode] = useState(true)
 
-  // Tema de Material UI
+  const [search, setSearch] = useState('')
+
   const theme = createTheme({
     palette: {
       mode: darkMode ? 'dark' : 'light'
     }
   })
 
-  // Traer productos desde la API
   async function getProducts() {
     try {
       setLoading(true)
@@ -53,7 +47,9 @@ export default function ElementosGlobalesProvider(props) {
     error,
     darkMode,
     setDarkMode,
-    theme
+    theme,
+    search,
+    setSearch
   }
 
   useEffect(() => {
