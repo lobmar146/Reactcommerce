@@ -58,23 +58,7 @@ function Footer() {
           flexWrap: 'wrap',
           mb: 3
         }}
-      >
-        <Link href='#' underline='none' color='text.primary'>
-          Products
-        </Link>
-
-        <Link href='#' underline='none' color='text.primary'>
-          Pricing
-        </Link>
-
-        <Link href='#' underline='none' color='text.primary'>
-          About
-        </Link>
-
-        <Link href='#' underline='none' color='text.primary'>
-          Contact
-        </Link>
-      </Box>
+      ></Box>
 
       {/* Redes sociales */}
 

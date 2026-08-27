@@ -9,6 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 
 import { useContext } from 'react'
 import { ElementosGlobales } from './context/ElementosGlobales'
+import ScrollTopButton from './components/Home/ScrollTopButton'
 
 function App() {
   const { theme } = useContext(ElementosGlobales)
@@ -22,6 +23,7 @@ function App() {
       <Main />
 
       <Footer />
+      <ScrollTopButton />
     </ThemeProvider>
   )
 }
