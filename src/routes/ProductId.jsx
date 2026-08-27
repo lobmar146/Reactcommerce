@@ -9,10 +9,13 @@ import Chip from '@mui/material/Chip'
 import Rating from '@mui/material/Rating'
 import LinearProgress from '@mui/material/LinearProgress'
 import Divider from '@mui/material/Divider'
-import HomeIcon from '@mui/icons-material/Home'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { ElementosGlobales } from '../context/ElementosGlobales'
+import { useContext } from 'react'
 
 function ProductDetailID() {
+  const { darkMode } = useContext(ElementosGlobales)
+
   const { id } = useParams()
 
   const [product, setProduct] = useState(null)
@@ -88,8 +91,7 @@ function ProductDetailID() {
         to='/'
         startIcon={<ArrowBackIcon />}
         sx={{
-          backgroundColor: '#1E1E1E',
-
+          backgroundColor: darkMode ? '#1E1E1E' : '#FFFFFF',
           mb: 3,
           boxShadow: 2,
           borderRadius: 1,

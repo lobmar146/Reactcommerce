@@ -10,7 +10,7 @@ function ChangeTheme() {
   const { darkMode, setDarkMode } = useContext(ElementosGlobales)
 
   function changeTheme() {
-    setDarkMode(!darkMode)
+    setDarkMode(prev => !prev)
   }
 
   return (
@@ -19,4 +19,5 @@ function ChangeTheme() {
     </IconButton>
   )
 }
+
 export default ChangeTheme
