@@ -1,4 +1,3 @@
-import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -11,7 +10,7 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import { useContext, useState } from 'react'
+import { useContext, useState, useRef } from 'react'
 import { ElementosGlobales } from '../../context/ElementosGlobales'
 import SearchIcon from '@mui/icons-material/Search'
 import TextField from '@mui/material/TextField'
@@ -24,11 +23,18 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null)
 
   const [searchFocused, setSearchFocused] = useState(false)
+  const inputRef = useRef(null)
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget)
   }
+  const handleSearchOpen = () => {
+    setSearchFocused(true)
 
+    setTimeout(() => {
+      inputRef.current?.focus()
+    }, 0)
+  }
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
   }
@@ -163,6 +169,7 @@ function ResponsiveAppBar() {
             size='small'
             placeholder='Find product...'
             value={search}
+            inputRef={inputRef}
             onChange={event => setSearch(event.target.value)}
             onFocus={() => setSearchFocused(true)}
             onBlur={() => setSearchFocused(false)}
@@ -171,25 +178,37 @@ function ResponsiveAppBar() {
               borderRadius: 1,
 
               width: {
-                xs: searchFocused ? 220 : 48,
+                xs: searchFocused || search ? 220 : 48,
                 sm: 220,
                 md: 250
               },
 
               transition: 'width 0.3s ease',
 
-              '& input': {
-                display: {
-                  xs: searchFocused ? 'block' : 'none',
-                  sm: 'block'
-                }
+              '& .MuiInputBase-root': {
+                height: 44
+              },
+
+              '& .MuiInputBase-input': {
+                width: {
+                  xs: searchFocused || search ? '100%' : 0,
+                  sm: '100%'
+                },
+                transition: 'width 0.3s ease'
               }
             }}
             slotProps={{
               input: {
                 startAdornment: (
                   <InputAdornment position='start'>
-                    <SearchIcon />
+                    <IconButton
+                      size='small'
+                      onClick={handleSearchOpen}
+                      edge='start'
+                      aria-label='Buscar producto'
+                    >
+                      <SearchIcon />
+                    </IconButton>
                   </InputAdornment>
                 )
               }
