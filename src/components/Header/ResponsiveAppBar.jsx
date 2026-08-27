@@ -12,9 +12,8 @@ import MenuItem from '@mui/material/MenuItem'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { useContext, useState, useRef } from 'react'
 import { ElementosGlobales } from '../../context/ElementosGlobales'
-import SearchIcon from '@mui/icons-material/Search'
-import TextField from '@mui/material/TextField'
-import InputAdornment from '@mui/material/InputAdornment'
+import SearchBar from './Searchbar'
+import ChangeTheme from './ChangeTheme'
 const pages = ['Products']
 
 function ResponsiveAppBar() {
@@ -28,13 +27,7 @@ function ResponsiveAppBar() {
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget)
   }
-  const handleSearchOpen = () => {
-    setSearchFocused(true)
 
-    setTimeout(() => {
-      inputRef.current?.focus()
-    }, 0)
-  }
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
   }
@@ -43,112 +36,62 @@ function ResponsiveAppBar() {
     <AppBar position='static'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          {/* Logo escritorio */}
-
-          <ShoppingCartIcon
-            sx={{
-              display: { xs: 'none', md: 'flex' },
-              mr: 1
-            }}
-          />
-
-          <Typography
-            variant='h6'
-            noWrap
-            component='a'
-            href='/'
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.15rem',
-              color: 'inherit',
-              textDecoration: 'none'
-            }}
-          >
-            ReactCommerce
-          </Typography>
-
-          {/* Menú hamburguesa */}
-
+          {/* BLOQUE IZQUIERDO */}
           <Box
             sx={{
-              flexGrow: 1,
-              display: { xs: 'flex', md: 'none' }
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1
             }}
           >
+            {/* Hamburguesa mobile */}
             <IconButton
-              size='large'
-              aria-label='menu'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              onClick={handleOpenNavMenu}
               color='inherit'
+              onClick={handleOpenNavMenu}
+              sx={{
+                display: {
+                  xs: 'flex',
+                  md: 'none'
+                }
+              }}
             >
               <MenuIcon />
             </IconButton>
 
-            <Menu
-              id='menu-appbar'
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left'
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left'
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+            {/* Carrito */}
+            <ShoppingCartIcon />
+
+            {/* Nombre */}
+            <Typography
+              variant='h6'
+              noWrap
+              component='a'
+              href='/'
               sx={{
-                display: { xs: 'block', md: 'none' }
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                fontSize: '1.2rem',
+                letterSpacing: '.08rem',
+                color: 'inherit',
+                textDecoration: 'none',
+
+                '@media (max-width: 430px)': {
+                  display: 'none'
+                }
               }}
             >
-              {pages.map(page => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+              ReactCommerce
+            </Typography>
           </Box>
 
-          {/* Logo celular */}
-
-          <ShoppingCartIcon
-            sx={{
-              display: { xs: 'flex', md: 'none' },
-              mr: 1
-            }}
-          />
-
-          <Typography
-            variant='h5'
-            noWrap
-            component='a'
-            href='/'
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.1rem',
-              color: 'inherit',
-              textDecoration: 'none'
-            }}
-          >
-            ReactCommerce
-          </Typography>
-
-          {/* Menú escritorio */}
-
+          {/* MENÚ ESCRITORIO */}
           <Box
             sx={{
-              flexGrow: 1,
-              display: { xs: 'none', md: 'flex' }
+              ml: 3,
+              display: {
+                xs: 'none',
+                md: 'flex'
+              }
             }}
           >
             {pages.map(page => (
@@ -156,64 +99,39 @@ function ResponsiveAppBar() {
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{
-                  my: 2,
-                  color: 'white',
-                  display: 'block'
+                  color: 'white'
                 }}
               >
                 {page}
               </Button>
             ))}
           </Box>
-          <TextField
-            size='small'
-            placeholder='Find product...'
-            value={search}
-            inputRef={inputRef}
-            onChange={event => setSearch(event.target.value)}
-            onFocus={() => setSearchFocused(true)}
-            onBlur={() => setSearchFocused(false)}
+
+          {/* ESPACIO FLEXIBLE */}
+          <Box sx={{ flexGrow: 1 }} />
+
+          {/* BLOQUE DERECHO */}
+          <Box
             sx={{
-              backgroundColor: 'background.paper',
-              borderRadius: 1,
-
-              width: {
-                xs: searchFocused || search ? 220 : 48,
-                sm: 220,
-                md: 250
-              },
-
-              transition: 'width 0.3s ease',
-
-              '& .MuiInputBase-root': {
-                height: 44
-              },
-
-              '& .MuiInputBase-input': {
-                width: {
-                  xs: searchFocused || search ? '100%' : 0,
-                  sm: '100%'
-                },
-                transition: 'width 0.3s ease'
-              }
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1
             }}
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position='start'>
-                    <IconButton
-                      size='small'
-                      onClick={handleSearchOpen}
-                      edge='start'
-                      aria-label='Buscar producto'
-                    >
-                      <SearchIcon />
-                    </IconButton>
-                  </InputAdornment>
-                )
-              }
-            }}
-          />
+          >
+            <SearchBar />
+            <ChangeTheme />
+          </Box>
+          <Menu
+            anchorEl={anchorElNav}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNavMenu}
+          >
+            {pages.map(page => (
+              <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <Typography>{page}</Typography>
+              </MenuItem>
+            ))}
+          </Menu>
         </Toolbar>
       </Container>
     </AppBar>
