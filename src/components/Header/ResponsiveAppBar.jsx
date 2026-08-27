@@ -15,7 +15,7 @@ import { ElementosGlobales } from '../../context/ElementosGlobales'
 import SearchBar from './Searchbar'
 import ChangeTheme from './ChangeTheme'
 const pages = ['Products']
-
+import { Link } from 'react-router-dom'
 function ResponsiveAppBar() {
   const { search, setSearch } = useContext(ElementosGlobales)
 
@@ -59,8 +59,16 @@ function ResponsiveAppBar() {
             </IconButton>
 
             {/* Carrito */}
-            <ShoppingCartIcon />
-
+            <Link
+              to='/'
+              style={{
+                display: 'flex',
+                color: 'inherit',
+                textDecoration: 'none'
+              }}
+            >
+              <ShoppingCartIcon />
+            </Link>
             {/* Nombre */}
             <Typography
               variant='h6'
