@@ -75,7 +75,7 @@ function ResponsiveAppBar() {
                 color: 'inherit',
                 textDecoration: 'none',
 
-                '@media (max-width: 430px)': {
+                '@media (max-width: 520px)': {
                   display: 'none'
                 }
               }}
